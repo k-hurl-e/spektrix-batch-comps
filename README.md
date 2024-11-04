@@ -86,6 +86,8 @@ The system uses Google Sheets API to:
 - Maintain historical data
 - Enable automatic chart updates
 
+Adjust the values in `newrows.py` to match your Google Sheet structure. Update sheet names in `main.py` to match your Google Sheet names.
+
 ## Security Notes
 
 - API credentials are stored in environment variables
