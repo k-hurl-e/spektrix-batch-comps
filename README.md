@@ -26,34 +26,6 @@ The system performs several key functions:
 - Compares pricing trends
 - Updates weekly summary data
 
-Reference to main execution flow:
-
-```12:34:main.py
-def main():
-    orders = get_orders_by_confirmation_date(api_user, api_key, client_name, confirmation_date)
-    processed_orders = process_orders(orders, event_id)
-    total_tickets = calculate_total_tickets(processed_orders)
-    instance_statuses = get_event_instances_statuses(api_user, api_key, client_name, event_id, start_date)
-
-    # Update daily ticket sales sheet
-    SHEET_NAME = 'GMCT_DAILY_TICKET_SALES_DATA' 
-    update_sheet_daily_tickets(total_tickets, pretty_date, SHEET_NAME)
-
-    # Update booked per instance sheet
-    SHEET_NAME = 'GMCT_BOOKED_PER_INSTANCE_DATA' 
-    update_sheet_booked_per_instance(instance_statuses, SHEET_NAME)
-
-    # Update capacity summary sheet
-    SHEET_NAME = 'GMCT_CAPACITY_DATA'
-    update_sheet_capacity_summary(calculate_event_capacity_summary(instance_statuses), SHEET_NAME)
-
-    # Get weekly data
-    if datetime.now().weekday() == 0:  # Check if today is Monday
-        SHEET_NAME = 'GMCT_AVG_PRICE_DATA'
-        update_sheet_weekly_ticket_price(SHEET_NAME)
-```
-
-
 ## Setup
 
 ### Prerequisites
@@ -105,47 +77,6 @@ EXTRA_LOCKS=number_of_extra_locks_per_instance_if_any
 ### 4. Weekly Price Analysis
 - Monitors average ticket prices
 - Compares against historical data
-
-Reference to weekly data processing:
-
-```9:43:weekly.py
-def get_weekly_orders():
-    # Get dates for the past week
-    end_date = datetime.now() - timedelta(days=1)  # Yesterday
-    start_date = end_date - timedelta(days=6)  # 7 days ago
-    
-    # Initialize dictionary to store daily totals
-    weekly_data = {}
-    
-    # Loop through each day of the week
-    current_date = start_date
-    while current_date <= end_date:
-        date_str = current_date.strftime("%Y-%m-%d")
-        pretty_date = current_date.strftime("%m/%d/%Y")
-        
-        # Get orders for this date using functions from orders.py
-        orders = get_orders_by_confirmation_date(
-            api_user=api_user,
-            api_key=api_key,
-            client_name=client_name,
-            confirmation_date=date_str
-        )
-        processed_orders = process_orders(orders, event_id)
-        total_tickets = calculate_total_tickets(processed_orders)
-        
-        # Store the results
-        weekly_data[pretty_date] = {
-            'tickets': total_tickets if isinstance(total_tickets, int) else 0,
-            'orders': len(processed_orders) if isinstance(processed_orders, list) else 0,
-            'revenue': sum(float(order['Ticket Revenue']) for order in processed_orders) if isinstance(processed_orders, list) else 0
-        }
-        
-        # Move to next day
-        current_date += timedelta(days=1)
-    
-    return weekly_data
-```
-
 
 ## Google Sheets Integration
 
