@@ -1,8 +1,6 @@
 # Spektrix to Google Sheets Automated Reporting
 
-## Introduction
-
-[Spektrix](https://www.spektrix.com/) is a ticketing and CRM platform specifically designed for the performing arts sector. As someone who works in the performing arts, I was excited to discover Spektrix's robust API capabilities. While Spektrix provides built-in reporting tools, I wanted to create a customized automated reporting system that would:
+[Spektrix](https://www.spektrix.com/) is a ticketing and CRM platform specifically designed for the performing arts sector. While Spektrix provides great built-in reporting tools, I wanted to create a customized automated reporting system that would:
 
 1. Pull specific data points I frequently need
 2. Automatically update Google Sheets (which I use for simple data visualization)
@@ -10,6 +8,8 @@
 4. Utilize free tools to keep costs minimal
 
 This project demonstrates how to connect Spektrix's API with Google Sheets to create automated daily and weekly reports for ticket sales, capacity tracking, and revenue analysis.
+
+This repository is entirely third-party and not supported by or affiliated with Spektrix or Google.
 
 ## How It Works
 
