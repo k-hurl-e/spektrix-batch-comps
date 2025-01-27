@@ -16,20 +16,20 @@ def main():
     instance_statuses = get_event_instances_statuses(api_user, api_key, client_name, event_id, start_date)
 
     # Update daily ticket sales sheet
-    SHEET_NAME = 'GMCT_DAILY_TICKET_SALES_DATA' 
+    SHEET_NAME = 'DAILY_TICKET_SALES_DATA' 
     update_sheet_daily_tickets(total_tickets, pretty_date, SHEET_NAME)
 
     # Update booked per instance sheet
-    SHEET_NAME = 'GMCT_BOOKED_PER_INSTANCE_DATA' 
+    SHEET_NAME = 'BOOKED_PER_INSTANCE_DATA' 
     update_sheet_booked_per_instance(instance_statuses, SHEET_NAME)
 
     # Update capacity summary sheet
-    SHEET_NAME = 'GMCT_CAPACITY_DATA'
+    SHEET_NAME = 'CAPACITY_DATA'
     update_sheet_capacity_summary(calculate_event_capacity_summary(instance_statuses), SHEET_NAME)
 
     # Get weekly data
     if datetime.now().weekday() == 0:  # Check if today is Monday
-        SHEET_NAME = 'GMCT_AVG_PRICE_DATA'
+        SHEET_NAME = 'AVG_PRICE_DATA'
         update_sheet_weekly_ticket_price(SHEET_NAME)
 
 if __name__ == "__main__":
